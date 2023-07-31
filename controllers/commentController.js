@@ -2,6 +2,7 @@ const commentServices = require("../services/commentService");
 
 const postComment = async (req, res) => {
   try {
+    //you need to initialize const like this else you the json reqonse will show error
     const postComment = await commentServices.postComment(req.body);
     res.status(201).json(postComment);
   } catch (e) {
@@ -11,7 +12,6 @@ const postComment = async (req, res) => {
 
 const getComments = async (req, res) => {
   try {
-    //you need to initialize const like this else you the json reqonse will show error
     const getComments = await commentServices.getComments();
     res.status(201).json(getComments);
   } catch (e) {
@@ -21,9 +21,11 @@ const getComments = async (req, res) => {
 
 const getCommentsOfPost = async (req, res) => {
   try {
-    await res
-      .status(201)
-      .json(commentServices.postComment(req.params.itemid, req.body));
+    const getCommentsOfPost = await commentServices.postComment(
+      req.params.itemid,
+      req.body
+    );
+    res.status(201).json(getCommentsOfPost);
   } catch (e) {
     res.status(500).json({ message: "Error", e });
   }
@@ -31,9 +33,11 @@ const getCommentsOfPost = async (req, res) => {
 
 const updateComment = async (req, res) => {
   try {
-    await res
-      .status(201)
-      .json(commentServices.updateComment(req.params.id, req.body));
+    const updateComment = await commentServices.updateComment(
+      req.params.id,
+      req.body
+    );
+    res.status(201).json(updateComment);
   } catch (e) {
     res.status(500).json({ message: "Error", e });
   }
@@ -41,7 +45,8 @@ const updateComment = async (req, res) => {
 
 const deleteComment = async (req, res) => {
   try {
-    await res.status(201).json(commentServices.deleteComment(req.params.id));
+    const deleteComment = await commentServices.deleteComment(req.params.id);
+    res.status(201).json(deleteComment);
   } catch (e) {
     res.status(500).json({ message: "Error", e });
   }
