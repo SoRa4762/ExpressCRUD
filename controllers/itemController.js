@@ -21,7 +21,11 @@ const GetItems = async (req, res) => {
 const GetItemById = async (req, res) => {
   try {
     const getItemById = await ItemService.GetItemById(req.params.id);
-    res.status(201).json(getItemById);
+    if (!getItemById) {
+      return res.status(404).json({ message: "Item not found!" });
+    } else {
+      res.status(201).json(getItemById);
+    }
   } catch (err) {
     res.status(500).json({ err: err.message });
   }
@@ -30,6 +34,11 @@ const GetItemById = async (req, res) => {
 const UpdateItem = async (req, res) => {
   try {
     const updateItem = await ItemService.UpdateItem(req.params.id, req.body);
+    if (!updateItem) {
+      return res.status(404).json({ message: "Item not found!" });
+    } else {
+      res.status(201).json(updateItem);
+    }
   } catch (err) {
     res.status(500).json({ err: err.message });
   }
@@ -38,7 +47,11 @@ const UpdateItem = async (req, res) => {
 const DeleteItem = async (req, res) => {
   try {
     const deleteItem = await ItemService.DeleteItem(req.params.id);
-    res.status(200).json(deleteItem);
+    if (!deleteItem) {
+      return res.status(404).json({ message: "Item not found!" });
+    } else {
+      res.status(200).json(deleteItem);
+    }
   } catch (err) {
     res.status(500).json({ err: err.message });
   }

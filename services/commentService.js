@@ -14,9 +14,9 @@ const getComments = () => {
     throw e;
   }
 };
-const getCommentsOfPost = (itemId, commentData) => {
+const getCommentsOfPost = (itemId) => {
   try {
-    return commentModel.findById(itemId, commentData);
+    return commentModel.findById({ where: itemId });
   } catch (e) {
     throw e;
   }
@@ -32,7 +32,7 @@ const updateComment = (commentId, commentData) => {
 };
 const deleteComment = (commentId) => {
   try {
-    return commentModel.findByIdAndDelete(id);
+    return commentModel.findByIdAndDelete(commentId);
   } catch (e) {
     throw e;
   }

@@ -25,7 +25,11 @@ const getCommentsOfPost = async (req, res) => {
       req.params.itemid,
       req.body
     );
-    res.status(201).json(getCommentsOfPost);
+    if (!getCommentsOfPost) {
+      return res.status(404).json({ message: "Comment not found" });
+    } else {
+      res.status(201).json(getCommentsOfPost);
+    }
   } catch (e) {
     res.status(500).json({ message: "Error", e });
   }
@@ -37,7 +41,11 @@ const updateComment = async (req, res) => {
       req.params.id,
       req.body
     );
-    res.status(201).json(updateComment);
+    if (!updateComment) {
+      return res.status(404).json({ message: "Comment not found" });
+    } else {
+      res.status(201).json(updateComment);
+    }
   } catch (e) {
     res.status(500).json({ message: "Error", e });
   }
@@ -46,7 +54,11 @@ const updateComment = async (req, res) => {
 const deleteComment = async (req, res) => {
   try {
     const deleteComment = await commentServices.deleteComment(req.params.id);
-    res.status(201).json(deleteComment);
+    if (!deleteComment) {
+      return res.status(404).json({ message: "Comment not found" });
+    } else {
+      res.status(201).json(deleteComment);
+    }
   } catch (e) {
     res.status(500).json({ message: "Error", e });
   }
