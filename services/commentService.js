@@ -16,7 +16,7 @@ const getComments = () => {
 };
 const getCommentsOfPost = (itemId) => {
   try {
-    return commentModel.findById({ where: itemId });
+    return commentModel.find({ itemId: itemId });
   } catch (e) {
     throw e;
   }

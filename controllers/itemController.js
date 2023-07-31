@@ -1,4 +1,5 @@
 const ItemService = require("../services/itemService");
+const CommentServices = require("../services/commentService");
 
 const CreateItem = async (req, res) => {
   try {
@@ -21,10 +22,13 @@ const GetItems = async (req, res) => {
 const GetItemById = async (req, res) => {
   try {
     const getItemById = await ItemService.GetItemById(req.params.id);
+    const getCommentsOfItem = await CommentServices.getCommentsOfPost(
+      getItemById._id
+    );
     if (!getItemById) {
       return res.status(404).json({ message: "Item not found!" });
     } else {
-      res.status(201).json(getItemById);
+      res.status(201).json({ getItemById, getCommentsOfItem });
     }
   } catch (err) {
     res.status(500).json({ err: err.message });
