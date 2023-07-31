@@ -21,9 +21,8 @@ const getComments = async (req, res) => {
 
 const getCommentsOfPost = async (req, res) => {
   try {
-    const getCommentsOfPost = await commentServices.postComment(
-      req.params.itemid,
-      req.body
+    const getCommentsOfPost = await commentServices.getCommentsOfPost(
+      req.params.itemid
     );
     if (!getCommentsOfPost) {
       return res.status(404).json({ message: "Comment not found" });
